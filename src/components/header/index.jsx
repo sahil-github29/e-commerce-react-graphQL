@@ -2,8 +2,9 @@ import React from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
+import { auth } from "../../firebase/firebase.utils";
 
-export default props => (
+export default ({ currentUser }) => (
   <div className="header">
     <Link to="/" className="logo-container">
       <Logo className="logo"></Logo>
@@ -18,9 +19,16 @@ export default props => (
       <Link className="option" to="/aboutus">
         ABOUT US
       </Link>
-      <Link className="option" to="/signin">
-        SIGN IN
-      </Link>
+
+      {currentUser ? (
+        <div className="option" onClick={() => auth.signOut()}>
+          SIGN OUT
+        </div>
+      ) : (
+        <Link to="/signIn" className="option">
+          SIGN IN
+        </Link>
+      )}
     </div>
   </div>
 );
