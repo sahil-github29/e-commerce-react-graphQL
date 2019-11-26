@@ -29,6 +29,7 @@ export default ({ currentUser }) => (
           SIGN IN
         </Link>
       )}
+      {console.log(currentUser)}
     </div>
   </div>
 );
