@@ -1,6 +1,5 @@
 import React from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Header from "./components/header";
@@ -52,11 +51,22 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Homepage}></Route>
           <Route exact path="/shop" component={ShopPage}></Route>
-          <Route exact path="/signin" component={SignSignout}></Route>
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <SignSignout />
+            }
+          ></Route>
         </Switch>
       </div>
     );
   }
 }
 
-export default connect(null, { setCurrentUser })(App);
+/* destructuring user reducer from state */
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
+export default connect(mapStateToProps, { setCurrentUser })(App);
