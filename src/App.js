@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Header from "./components/header";
 import Homepage from "./pages/homepage";
 import ShopPage from "./pages/shop";
-import SignSignout from "./pages/signInSignup";
+import SignSignout from "./pages/signIn-signup";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.action";
 

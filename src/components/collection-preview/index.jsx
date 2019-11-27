@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import CollectionItem from "../collectionItem";
+import CollectionItem from "../collection-item";
 
 export default ({ title, items }) => (
   <div className="collection-preview">

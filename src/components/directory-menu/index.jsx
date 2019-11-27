@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-import MenuItem from "../menuItem";
+import MenuItem from "../menu-item";
 
 const jsonData = [
   {

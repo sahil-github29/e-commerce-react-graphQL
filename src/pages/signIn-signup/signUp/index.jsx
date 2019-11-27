@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import FormInput from "../../../components/formInput";
-import CustomButton from "../../../components/customButton";
+import FormInput from "../../../components/form-input";
+import CustomButton from "../../../components/custom-button";
 
 import {
   auth,
