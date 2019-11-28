@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ShopData from "./shopData";
-import CollectionPreview from "../../components/collectionPreview";
+import CollectionPreview from "../../components/collection-preview";
 
 export default class Shop extends Component {
   constructor(props) {
