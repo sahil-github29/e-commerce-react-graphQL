@@ -5,7 +5,12 @@ import { persistStore } from "redux-persist";
 import RootReducer from "./rootReducer";
 
 /* in this array we can add more middlewares */
-const middleware = [logger];
+const middleware = [];
+
+/* adding logger only on  development server */
+if (process.env.NODE_ENV === "development") {
+  middleware.push(logger);
+}
 
 export const store = createStore(RootReducer, applyMiddleware(...middleware));
 
