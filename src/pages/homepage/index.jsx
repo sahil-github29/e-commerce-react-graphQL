@@ -1,9 +1,11 @@
 import React from "react";
-import "./index.scss";
 import DirectoryMenu from "../../components/directory-menu";
 
+/* Styled Components */
+import { HomepageContainer } from "./styled.components";
+
 export default props => (
-  <div className="homepage">
+  <HomepageContainer className="homepage">
     <DirectoryMenu />
-  </div>
+  </HomepageContainer>
 );

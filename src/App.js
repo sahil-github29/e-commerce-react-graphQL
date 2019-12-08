@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import Header from "./components/header";
 import Homepage from "./pages/homepage";
@@ -11,6 +12,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.action";
 
 import "./App.css";
+import { selectCurrentUser } from "./redux/user/user.selector";
 
 class App extends React.Component {
   constructor(props) {
@@ -67,8 +69,8 @@ class App extends React.Component {
 }
 
 /* destructuring user reducer from state */
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 export default connect(mapStateToProps, { setCurrentUser })(App);

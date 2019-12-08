@@ -41,6 +41,51 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+/* util function to add collection and documents to firebase database */
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  console.log(objectsToAdd);
+  const collectionRef = firestore.collection(collectionKey);
+
+  /* through this we can make batch request */
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach(obj => {
+    /* it create new empty document/object with unique Id */
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  /* fire off our batch call 
+    if it success, it returns promise and if resoled, returns null else error 
+  */
+  return await batch.commit();
+};
+
+/* convert shopData array into the required object  */
+export const convertCollectionsSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    /* we get the data on collections using doc.data() */
+    const { title, items } = doc.data();
+
+    return {
+      /* encodeURI => This function encodes special characters, except: , / ? : @ & = + $ #
+       (Use encodeURIComponent() to encode these characters). */
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    };
+  });
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
+};
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
