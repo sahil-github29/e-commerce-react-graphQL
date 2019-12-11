@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 
 const CollectionPage = ({ collection }) => {
   const { title, items } = collection;
-  console.log(items); // this will show the actual URL path with params if any
   return (
     <div className="collection-page">
       <h2 className="title">{title}</h2>
