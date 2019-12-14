@@ -41,6 +41,16 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+/* to check if the user exists */
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 /* util function to add collection and documents to firebase database */
 export const addCollectionAndDocuments = async (
   collectionKey,
@@ -96,13 +106,10 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 // google authentication. It takes some custom parameters
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: "select_account" // always trigger google popup whenever we use google auth provider
 });
-
-export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider);
-};
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

@@ -8,11 +8,10 @@ import Homepage from "./pages/homepage";
 import ShopPage from "./pages/shop";
 import CheckoutPage from "./pages/checkout";
 import SignSignout from "./pages/signIn-signup";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/user/user.action";
 
 import "./App.css";
 import { selectCurrentUser } from "./redux/user/user.selector";
+import { checkUserSession } from "./redux/user/user.action";
 
 class App extends React.Component {
   constructor(props) {
@@ -22,30 +21,10 @@ class App extends React.Component {
       currentUser: null
     };
   }
-  unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapshot => {
-          setCurrentUser({
-            id: snapshot,
-            ...snapshot.data()
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
-  }
-
-  /* before closing the browser, it will close the connection
-  because google oAuth is open persistent connection.*/
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
   render() {
     return (
@@ -73,4 +52,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps, { setCurrentUser })(App);
+export default connect(mapStateToProps, { checkUserSession })(App);
