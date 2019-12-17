@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 import StripeCheckout from "react-stripe-checkout";
 
@@ -9,13 +10,27 @@ export default ({ price }) => {
 
   // Callback on success
   const onToken = token => {
-    console.log(token);
-    alert("Payment Successful");
+    axios({
+      url: "payment",
+      method: "post",
+      data: {
+        amount: priceForStripe,
+        description: "online payment",
+        token
+      }
+    })
+      .then(response => {
+        alert("Payment Successful");
+      })
+      .catch(error => {
+        console.log("Payment error : ", error);
+        alert("There was an issue with your payment");
+      });
   };
 
   return (
     <StripeCheckout
-      lable="Pay Now"
+      label="Pay Now"
       name="Clothing Company"
       billingAddress
       shippingAddress
