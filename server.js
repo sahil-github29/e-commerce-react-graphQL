@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-const port = process.env.port || 8080;
+const PORT = process.env.PORT || 5000;
 
 /* any of the request coming in I want you to process their "body tag" and convert into JSON */
 app.use(bodyParser.json());
@@ -38,9 +38,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(port, error => {
+app.listen(PORT, error => {
   if (error) throw error;
-  console.log("Server running on port " + port);
+  console.log("Server running on port " + PORT);
 });
 
 /* Stripe payment route */
