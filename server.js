@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-const port = process.env.port || 5000;
+const port = process.env.port || 8080;
 
 /* any of the request coming in I want you to process their "body tag" and convert into JSON */
 app.use(bodyParser.json());
@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* 
-  development server : 5000
+  development server : 8080
   client : 3000
 
   server and client are not different port/orogin and when out frontend makes a request to our backend what cors does is that it checks to makes sure that the origin is same, if it is not the same then it denies the request which is a safety feature.
