@@ -4,6 +4,12 @@
   height: 350px;
   align-items: center;
   position: relative;
+  width: 90%;
+  margin-right: 5px;
+
+  @media screen and (width: 800px) {
+    width: 50%;
+  }
 
   .image {
     width: 100%;
