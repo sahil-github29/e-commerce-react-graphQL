@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
+const compression = require("compression");
 
 if (process.env.NODE_ENV !== "production") {
   /* this will load the .env file */
@@ -13,6 +14,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+app.use(compression());
 
 /* any of the request coming in I want you to process their "body tag" and convert into JSON */
 app.use(bodyParser.json());
