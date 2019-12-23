@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
 const compression = require("compression");
+const enforce = require("express-sslify");
 
 if (process.env.NODE_ENV !== "production") {
   /* this will load the .env file */
@@ -23,6 +24,8 @@ app.use(bodyParser.json());
 /* urlencoded => is a way for us to make sure that the URLs string we are getting in and when passing out, do not contain things like spaces, symbols, special characters, and if they do they properly escaped */
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/* We are enforcing HTTPS */
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 /* 
   development server : 8080
   client : 3000
@@ -44,6 +47,11 @@ if (process.env.NODE_ENV === "production") {
 app.listen(PORT, error => {
   if (error) throw error;
   console.log("Server running on port " + PORT);
+});
+
+/* for Progressive web app build/service-worker.js */
+app.get("./service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
 });
 
 /* Stripe payment route */
